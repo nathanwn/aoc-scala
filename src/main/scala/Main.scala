@@ -9,7 +9,7 @@
     case "06" => Day06.run()
     case "07" => Day07.run()
     case "08" => Day08.run()
-    case "09" => throw UnsupportedOperationException()
+    case "09" => Day09.run()
     case "10" => throw UnsupportedOperationException()
     case "11" => throw UnsupportedOperationException()
     case "12" => throw UnsupportedOperationException()
