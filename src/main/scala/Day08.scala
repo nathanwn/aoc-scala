@@ -29,24 +29,27 @@ object Day08 extends AocDay[List[Entry], Int]("data/day08") :
     input.split('\n').toList.map(parseEntry)
 
   def solve1(entries: List[Entry]): Int =
-    val uniqueCounts = List[Int](2, 4, 3, 7)
-    entries.map(entry =>
-      entry.display.map(mask =>
-        if uniqueCounts.contains(Integer.bitCount(mask)) then 1 else 0
-      ).sum
-    ).sum
+    entries.map(solveEntry1).sum
 
   def solve2(entries: List[Entry]): Int =
-    entries.map(solveEntry).sum
+    entries.map(solveEntry2).sum
 
-  def solveEntry(entry: Entry): Int =
-    // Find the correct mapping f(c) where c is a segment
+  def solveEntry1(entry: Entry): Int =
     val f = solveMapping(entry)
     entry.display.map(encodedMask =>
-      digitMasks.indexOf(decode(f)(encodedMask))
+      val digit = digitMasks.indexOf(decode(f)(encodedMask))
+      if List(1, 4, 7, 8).contains(digit) then 1 else 0
+    ).sum
+
+  def solveEntry2(entry: Entry): Int =
+    val f = solveMapping(entry)
+    entry.display.map(encodedMask =>
+      val digit = digitMasks.indexOf(decode(f)(encodedMask));
+      digit
     ).reduce((lhs, rhs) => lhs * 10 + rhs)
 
   def solveMapping(entry: Entry): Array[Int] =
+    // Find the correct mapping f(c) where c is a segment
     val maskSet = digitMasks.toSet
     val allMappings = range(0, 6).permutations.map(_.toArray).toList
     val mapping = allMappings.find(f =>
