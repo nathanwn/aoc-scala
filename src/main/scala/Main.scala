@@ -1,5 +1,5 @@
 @main def main(day: String): Unit =
-  println(s"Welcome to day ${day}")
+  println(s"Welcome to day $day")
   day match {
     case "01" => Day01.run()
     case "02" => throw UnsupportedOperationException()
@@ -10,7 +10,7 @@
     case "07" => Day07.run()
     case "08" => Day08.run()
     case "09" => Day09.run()
-    case "10" => throw UnsupportedOperationException()
+    case "10" => Day10.run()
     case "11" => throw UnsupportedOperationException()
     case "12" => throw UnsupportedOperationException()
     case "13" => throw UnsupportedOperationException()
@@ -26,6 +26,6 @@
     case "23" => throw UnsupportedOperationException()
     case "24" => throw UnsupportedOperationException()
     case "25" => throw UnsupportedOperationException()
-    case _ => throw RuntimeException(s"Invalid day ${day}")
+    case _ => throw RuntimeException(s"Invalid day $day")
   }
 

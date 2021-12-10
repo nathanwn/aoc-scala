@@ -90,3 +90,4 @@ fabric.properties
 .bloop/
 .metals/
 __pycache__/
+.bsp/
