@@ -17,13 +17,13 @@ abstract class AocDay[DType, RType <: AnyVal](val dataDir: String) {
     }.get
 
   def run(): Unit =
-    val parseInputFile = (file: String) => parse(getText(file))
-    val sampleData = parseInputFile(s"${dataDir}/sample.txt")
-    val data = parseInputFile(s"${dataDir}/input.txt")
-    println("Task 1")
-    println(s"Sample: ${solve1(sampleData)}")
-    println(s"Answer: ${solve1(data)}")
-    println("Task 2")
-    println(s"Sample: ${solve2(sampleData)}")
-    println(s"Answer: ${solve2(data)}")
+    def runSolver(solver: DType => RType, taskId: Int): Unit =
+      val parseInputFile = (file: String) => parse(getText(file))
+      val sampleData = parseInputFile(s"$dataDir/sample.txt")
+      val data = parseInputFile(s"$dataDir/input.txt")
+      println(s"Task $taskId")
+      println(s"Sample: ${solver(sampleData)}")
+      println(s"Answer: ${solver(data)}")
+    runSolver(solve1, 1)
+    runSolver(solve2, 2)
 }

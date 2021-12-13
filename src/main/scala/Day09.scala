@@ -34,8 +34,7 @@ object Day09 extends AocDay[Array[Array[Int]], Int]("data/day09") :
 
   def inside(grid: Array[Array[Int]])(u: (Int, Int)): Boolean =
     val (r, c) = u
-    range(0, grid.length - 1).contains(r) &&
-      range(0, grid(0).length - 1).contains(c)
+    0 <= r && r < grid.length && 0 <= c && c < grid(0).length
 
   def basinSize(grid: Array[Array[Int]])(s: (Int, Int)): Int =
     val visited = Array.ofDim[Boolean](grid.length, grid(0).length)
