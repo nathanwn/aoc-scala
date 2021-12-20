@@ -4,11 +4,8 @@ import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
 object Day17 extends AocDay[((Int, Int), (Int, Int)), Int]("data/day17"):
-  val INF: Int = 1e9.toInt
-
   def parse(input: String): ((Int, Int), (Int, Int)) =
     val coors = input.split(": ")(1).split(", ")
-//    println(coors.toList)
     (parseCoors(coors(0)), parseCoors(coors(1)))
 
   def parseCoors(s: String): (Int, Int) =
