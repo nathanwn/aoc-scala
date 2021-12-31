@@ -175,13 +175,7 @@ object Day23 extends AocDay[Array[Array[Char]], Long]("data/day23"):
     while pq.nonEmpty do
       val (u, d, p) = pq.dequeue()
       prev(u) = p
-      if u.isFinal then
-        var v = u
-        while true do
-          prev(v) match {
-            case None => return d
-            case Some(p) => v = p
-          }
+      if u.isFinal then return d
       if d == distance(u) then
         u.adjacencyList.foreach(e =>
           if !distance.contains(e.v) || distance(u) + e.w < distance(e.v) then
