@@ -10,6 +10,8 @@ object Day16 extends AocDay[Node, Long]("data/day16"):
   case class Operator(version: Int, typeId: Int, children: List[Node]) extends Node(version)
 
   def parse(input: String): Node =
+    // My first attempt writing parser combinators
+    // Each parse function returns the thing it tries to parse + the remaining string
     def parseLiteral(bits: String): (Long, String) =
       val builder = new StringBuilder
       var p = 0
@@ -18,8 +20,7 @@ object Day16 extends AocDay[Node, Long]("data/day16"):
         p += 5
       builder.append(bits.substring(p + 1, p + 5))
       p += 5
-      val remain = if p < bits.length then bits.substring(p) else ""
-      (BigInt(builder.toString(), 2).longValue, remain)
+      (BigInt(builder.toString(), 2).longValue, bits.substring(p))
 
     def parseOperator(bits: String): (List[Node], String) =
       val lengthTypeId = bits.charAt(0)
@@ -58,10 +59,11 @@ object Day16 extends AocDay[Node, Long]("data/day16"):
         remain = res._2
         (Operator(version, typeId, children), remain)
 
-    val bits = input
-      .map(c => if '0' <= c && c <= '9' then c - '0' else c - 'A' + 10)
-      .map(_.toBinaryString.reverse.padTo(4, '0').reverse)
-      .mkString
+    def hexToBin(c: Char): String =
+      (if '0' <= c && c <= '9' then c - '0' else c - 'A' + 10)
+        .toBinaryString.reverse.padTo(4, '0').reverse
+
+    val bits = input.map(hexToBin).mkString
     parseNode(bits)._1
 
   override def solve1(root: Node): Long =

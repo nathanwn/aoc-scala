@@ -24,6 +24,6 @@ abstract class AocDay[DType, RType <: AnyVal](val dataDir: String) {
       println(s"Task $taskId")
       println(s"Sample: ${solver(sampleData)}")
       println(s"Answer: ${solver(data)}")
-    runSolver(solve1, 1)
+//    runSolver(solve1, 1)
     runSolver(solve2, 2)
 }
