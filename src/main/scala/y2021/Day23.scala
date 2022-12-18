@@ -1,3 +1,5 @@
+package y2021
+
 import lib.*
 
 import scala.collection.mutable
@@ -21,23 +23,22 @@ object Day23 extends AocDay[Array[Array[Char]], Long]("data/day23"):
     def update(cell: Cell, key: Char): Unit = this.grid(cell._1)(cell._2) = key
 
     override def clone(): Node =
-      val newGrid: Array[Array[Char]] = Array.ofDim[Char](grid.length, grid(0).length)
+      val newGrid: Array[Array[Char]] =
+        Array.ofDim[Char](grid.length, grid(0).length)
       for (r <- grid.indices)
         for (c <- grid(0).indices)
           newGrid(r)(c) = grid(r)(c)
       new Node(newGrid)
 
-    /**
-     * Constraints:
-     * 1. Agents will never stop on the space immediately outside any room.
-     * 2. Agents will never move from the hallway into a room unless that room is their destination room
-     * 3. Once an agent stops moving in the hallway, it will stay in that spot until it can move into a room.
-     *
-     * From these constraints, we can reduce to 3 possible type of movements
-     * 1. From room to hallway
-     * 2. From room to room
-     * 3. From hallway to room
-     */
+    /** Constraints:
+      *   1. Agents will never stop on the space immediately outside any room.
+      *      2. Agents will never move from the hallway into a room unless that
+      *      room is their destination room 3. Once an agent stops moving in the
+      *      hallway, it will stay in that spot until it can move into a room.
+      *
+      * From these constraints, we can reduce to 3 possible type of movements
+      *   1. From room to hallway 2. From room to room 3. From hallway to room
+      */
     def adjacencyList: List[Edge] =
       def emptyHallway(cx: Int, cy: Int): Boolean =
         range(cx, cy).forall(this(1, _) == '.')
@@ -49,9 +50,10 @@ object Day23 extends AocDay[Array[Array[Char]], Long]("data/day23"):
             range(2, grid.length - 2).findLast(this(_, cTo) == '.') match
               case None => -1
               case Some(rTo) =>
-                range(rTo + 1, grid.length - 2).find(this(_, cTo) != agent) match
+                range(rTo + 1, grid.length - 2)
+                  .find(this(_, cTo) != agent) match
                   case Some(_) => -1
-                  case None => rTo
+                  case None    => rTo
 
       def fromRoomToHallway(fromCell: Cell): List[Edge] =
         val (rFrom, cFrom) = fromCell
@@ -72,7 +74,8 @@ object Day23 extends AocDay[Array[Array[Char]], Long]("data/day23"):
             val cLeft = math.min(cFrom, cTo)
             val cRight = math.max(cFrom, cTo)
             emptyHallway(cLeft, cRight)
-          ).map(toCell =>
+          )
+          .map(toCell =>
             val (rTo, cTo) = toCell
             val w = (rFrom - 1 + math.abs(cFrom - cTo)) * weights(agent)
             val neighbor: Node = clone()
@@ -134,10 +137,12 @@ object Day23 extends AocDay[Array[Array[Char]], Long]("data/day23"):
         .filter(cell =>
           val (r, c) = cell
           c != cRoom(this(cell)) ||
-            (r < grid.length - 2 && range(r + 1, grid.length - 2).exists(rr =>
-              !cRoom.contains(this(rr, c)) || cRoom(this(rr, c)) != c))
-            )
-      val hallwayToRoomEdges: List[Edge] = hallwayCells.flatMap(fromHallwayToRoom)
+          (r < grid.length - 2 && range(r + 1, grid.length - 2).exists(rr =>
+            !cRoom.contains(this(rr, c)) || cRoom(this(rr, c)) != c
+          ))
+        )
+      val hallwayToRoomEdges: List[Edge] =
+        hallwayCells.flatMap(fromHallwayToRoom)
       val roomToHallwayEdges: List[Edge] = roomCells.flatMap(fromRoomToHallway)
       val roomToRoomEdges: List[Edge] = roomCells.flatMap(fromRoomToRoom)
       val edges = hallwayToRoomEdges ++ roomToHallwayEdges ++ roomToRoomEdges
@@ -157,7 +162,7 @@ object Day23 extends AocDay[Array[Array[Char]], Long]("data/day23"):
     override def equals(obj: Any): Boolean =
       obj match
         case obj: Node => toString == obj.toString
-        case _ => false
+        case _         => false
 
   class Edge(val v: Node, val w: Int)
 
@@ -166,7 +171,8 @@ object Day23 extends AocDay[Array[Array[Char]], Long]("data/day23"):
 
   def Dijkstra(source: Node): Long =
     type PQEntry = (Node, Int, Option[Node]) // (v, d, u)
-    val pq: mutable.PriorityQueue[PQEntry] = mutable.PriorityQueue()(Ordering.by[PQEntry, Int](_._2).reverse)
+    val pq: mutable.PriorityQueue[PQEntry] =
+      mutable.PriorityQueue()(Ordering.by[PQEntry, Int](_._2).reverse)
     val distance = mutable.Map[Node, Int]()
     distance(source) = 0
     pq.addOne(source, 0, None)
@@ -189,9 +195,12 @@ object Day23 extends AocDay[Array[Array[Char]], Long]("data/day23"):
 
   def solve2(grid: Array[Array[Char]]): Long =
     val newGrid = Array(
-      grid(0), grid(1), grid(2),
+      grid(0),
+      grid(1),
+      grid(2),
       "###D#C#B#A###".toCharArray,
       "###D#B#A#C###".toCharArray,
-      grid(3), grid(4)
+      grid(3),
+      grid(4)
     )
     Dijkstra(new Node(newGrid))

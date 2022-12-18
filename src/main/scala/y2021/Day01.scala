@@ -1,6 +1,8 @@
+package y2021
+
 import lib.*
 
-object Day01 extends AocDay[List[Int], Int]("data/day01") :
+object Day01 extends AocDay[List[Int], Int]("data/day01"):
   def parse(s: String): List[Int] =
     s.split('\n').map(_.toInt).toList
 

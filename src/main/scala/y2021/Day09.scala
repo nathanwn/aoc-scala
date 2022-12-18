@@ -1,34 +1,34 @@
+package y2021
+
 import lib.*
 
 import scala.collection.mutable
 
-object Day09 extends AocDay[Array[Array[Int]], Int]("data/day09") :
+object Day09 extends AocDay[Array[Array[Int]], Int]("data/day09"):
   val adj: List[(Int, Int)] = List((1, 0), (-1, 0), (0, 1), (0, -1))
 
   def parse(input: String): Array[Array[Int]] =
-    input.split('\n').toList.map(line =>
-      line.map(c => c - '0').toArray
-    ).toArray
+    input.split('\n').toList.map(line => line.map(c => c - '0').toArray).toArray
 
   def solve1(grid: Array[Array[Int]]): Int =
     lowPoints(grid).map((r, c) => grid(r)(c) + 1).sum
 
   def solve2(grid: Array[Array[Int]]): Int =
     val sources: List[(Int, Int)] = lowPoints(grid)
-    sources.map(basinSize(grid))
+    sources
+      .map(basinSize(grid))
       .sortWith(_ > _)
-      .take(3).product
+      .take(3)
+      .product
 
   def lowPoints(grid: Array[Array[Int]]): List[(Int, Int)] =
     val points = range(0, grid.length - 1).flatMap(r =>
-      range(0, grid(0).length - 1).map(c =>
-        (r, c)
-      ))
+      range(0, grid(0).length - 1).map(c => (r, c))
+    )
     points.filter((r, c) =>
-        adj.forall((dr, dc) =>
-          if inside(grid)((r + dr, c + dc)) then
-            grid(r)(c) < grid(r + dr)(c + dc)
-          else true
+      adj.forall((dr, dc) =>
+        if inside(grid)((r + dr, c + dc)) then grid(r)(c) < grid(r + dr)(c + dc)
+        else true
       )
     )
 
@@ -44,7 +44,8 @@ object Day09 extends AocDay[Array[Array[Int]], Int]("data/day09") :
     var size = 1
     while (q.nonEmpty) {
       val (r, c) = q.removeHead()
-      adj.map((dr, dc) => (r + dr, c + dc))
+      adj
+        .map((dr, dc) => (r + dr, c + dc))
         .filter(inside(grid))
         .filter((ar, ac) => !visited(ar)(ac) && grid(ar)(ac) < 9)
         .foreach((ar, ac) =>

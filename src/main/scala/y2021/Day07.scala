@@ -1,7 +1,9 @@
+package y2021
+
 import lib.{AocDay, isTrue, range}
 
 // Page 61 of CP Handbook mentions this problem
-object Day07 extends AocDay[List[Int], Int]("data/day07") :
+object Day07 extends AocDay[List[Int], Int]("data/day07"):
   def parse(input: String): List[Int] =
     input.split(',').toList.map(s => s.toInt)
 
@@ -12,9 +14,12 @@ object Day07 extends AocDay[List[Int], Int]("data/day07") :
 
   def solve2(xs: List[Int]): Int =
     val xsAverage: Int = xs.sum / xs.length
-    range(xsAverage, xsAverage + 1).map(avg =>
-      xs.map(x =>
-        val d = Math.abs(avg - x)
-          d *(d + 1) / 2
-      ).sum.toInt
-    ).min
+    range(xsAverage, xsAverage + 1)
+      .map(avg =>
+        xs.map(x =>
+          val d = Math.abs(avg - x)
+          d * (d + 1) / 2
+        ).sum
+          .toInt
+      )
+      .min

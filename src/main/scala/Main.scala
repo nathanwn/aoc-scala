@@ -1,3 +1,5 @@
+import y2021.*
+
 @main def main(day: String): Unit =
   println(s"Welcome to day $day")
   day match {
@@ -5,7 +7,7 @@
     case "02" => throw UnsupportedOperationException()
     case "03" => throw UnsupportedOperationException()
     case "04" => throw UnsupportedOperationException()
-    case "05" => Day05.run()
+    case "05" => throw UnsupportedOperationException()
     case "06" => Day06.run()
     case "07" => Day07.run()
     case "08" => Day08.run()
@@ -26,6 +28,5 @@
     case "23" => Day23.run()
     case "24" => throw UnsupportedOperationException()
     case "25" => throw UnsupportedOperationException()
-    case _ => throw RuntimeException(s"Invalid day $day")
+    case _    => throw RuntimeException(s"Invalid day $day")
   }
-

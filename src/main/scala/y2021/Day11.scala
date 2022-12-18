@@ -1,16 +1,17 @@
+package y2021
+
 import lib.*
 
 import scala.annotation.tailrec
 import scala.collection.mutable
 
 object Day11 extends AocDay[Array[Array[Int]], Int]("data/day11"):
-  val adj: List[(Int, Int)] = product(range(-1, 1), range(-1, 1)).filter(_ != (0, 0))
+  val adj: List[(Int, Int)] =
+    product(range(-1, 1), range(-1, 1)).filter(_ != (0, 0))
   val SIZE = 10
 
   def parse(input: String): Array[Array[Int]] =
-    input.split('\n').toList.map(line =>
-      line.map(c => c - '0').toArray
-    ).toArray
+    input.split('\n').toList.map(line => line.map(c => c - '0').toArray).toArray
 
   def solve1(grid: Array[Array[Int]]): Int =
     def stepTransform(step: Int): Int =
@@ -35,11 +36,13 @@ object Day11 extends AocDay[Array[Array[Int]], Int]("data/day11"):
     stepTransform(0)
 
   def autoTransform(grid: Array[Array[Int]]): Int =
-    val flashing: List[(Int, Int)] = product(range(0, SIZE - 1), range(0, SIZE - 1))
-      .filter((r, c) => grid(r)(c) == 10)
+    val flashing: List[(Int, Int)] =
+      product(range(0, SIZE - 1), range(0, SIZE - 1))
+        .filter((r, c) => grid(r)(c) == 10)
     if flashing.isEmpty then return 0
     flashing.foreach((r, c) =>
-      adj.map((dr, dc) => (r + dr, c + dc))
+      adj
+        .map((dr, dc) => (r + dr, c + dc))
         .filter(inside(grid))
         .filter((nr, nc) => grid(nr)(nc) != 10 && grid(nr)(nc) != 0)
         .foreach((nr, nc) => grid(nr)(nc) += 1)

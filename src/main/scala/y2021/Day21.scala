@@ -1,10 +1,13 @@
+package y2021
+
 import lib.*
 
 import scala.collection.mutable
 
 object Day21 extends AocDay[Array[Int], Long]("data/day21"):
   def parse(input: String): Array[Int] =
-    input.split('\n')
+    input
+      .split('\n')
       .map(line => Integer.parseInt(line.split(": ").toList.last))
 
   def solve1(starts: Array[Int]): Long =
@@ -34,8 +37,7 @@ object Day21 extends AocDay[Array[Int], Long]("data/day21"):
 
     // X is rolling, Y is waiting
     def calcWins(sx: Int, sy: Int, px: Int, py: Int): (Long, Long) =
-      if dp.contains((sx, sy, px, py)) then
-        return dp((sx, sy, px, py))
+      if dp.contains((sx, sy, px, py)) then return dp((sx, sy, px, py))
       if sx >= 21 then return (1L, 0L)
       if sy >= 21 then return (0L, 1L)
 

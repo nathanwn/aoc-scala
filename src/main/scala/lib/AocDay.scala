@@ -1,6 +1,5 @@
 package lib
 
-
 import scala.io.Source
 import scala.util.{Try, Using}
 
@@ -12,8 +11,8 @@ abstract class AocDay[DType, RType <: AnyVal](val dataDir: String) {
   def solve2(data: DType): RType
 
   def getText(path: String): String =
-    Using(Source.fromFile(path)) {
-      source => source.mkString
+    Using(Source.fromFile(path)) { source =>
+      source.mkString
     }.get
 
   def run(): Unit =

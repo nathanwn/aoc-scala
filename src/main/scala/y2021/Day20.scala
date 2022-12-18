@@ -1,3 +1,5 @@
+package y2021
+
 import lib.*
 
 object Day20 extends AocDay[(Array[Int], Array[Array[Int]]), Int]("data/day20"):
@@ -25,8 +27,7 @@ object Day20 extends AocDay[(Array[Int], Array[Array[Int]]), Int]("data/day20"):
       // Tricky part of this question
       if bg == 0 then
         if mask(0) == 1 then bg = 1
-      else
-        if mask((1 << 9) - 1) == 0 then bg = 0
+      else if mask((1 << 9) - 1) == 0 then bg = 0
 
       val newImg = Array.fill(R + 4, C + 4)(bg)
 
@@ -36,8 +37,10 @@ object Day20 extends AocDay[(Array[Int], Array[Array[Int]]), Int]("data/day20"):
 
       for (i <- 1 until R + 3)
         for (j <- 1 until C + 3)
-          val bits = adj.map((dr, dc) => (i + dr, j + dc))
-            .map((r, c) => tImg(r)(c)).mkString
+          val bits = adj
+            .map((dr, dc) => (i + dr, j + dc))
+            .map((r, c) => tImg(r)(c))
+            .mkString
           newImg(i)(j) = mask(Integer.parseInt(bits, 2))
 
       img = newImg

@@ -1,7 +1,11 @@
+package y2021
+
+package y2021
+
 import Day05.Segment
 import lib.{AocDay, isTrue, range}
 
-object Day05 extends AocDay[List[Segment], Int]("data/day05") :
+object Day05 extends AocDay[List[Segment], Int]("data/day05"):
   class Point2D(val x: Int, val y: Int)
 
   class Segment(val p1: Point2D, val p2: Point2D):
@@ -20,8 +24,7 @@ object Day05 extends AocDay[List[Segment], Int]("data/day05") :
         val xs = range(p1.x, p2.x, xStep)
         val ys = range(p1.y, p2.y, yStep)
         xs.zip(ys).map((x, y) => Day05.Point2D(x, y))
-      else
-        List[Point2D]()
+      else List[Point2D]()
     }
 
   def parsePoint(input: String): Point2D =
@@ -29,10 +32,13 @@ object Day05 extends AocDay[List[Segment], Int]("data/day05") :
     Point2D(coors(0).toInt, coors(1).toInt)
 
   def parse(input: String): List[Segment] =
-    input.split('\n').toList.map(line =>
-      val points = line.split(" -> ")
+    input
+      .split('\n')
+      .toList
+      .map(line =>
+        val points = line.split(" -> ")
         Segment(parsePoint(points(0)), parsePoint(points(1)))
-    )
+      )
 
   def solve(countDiagonals: Boolean)(segments: List[Segment]): Int =
     val points = segments.flatMap(segment => segment.points(countDiagonals))

@@ -1,24 +1,34 @@
+package y2021
+
 import Day22.Cmd
 import lib.*
 
 import scala.collection.mutable
 
 object Day22 extends AocDay[List[Cmd], Long]("data/day22"):
-  class Cmd(val signal: Int,
-            val xMin: Int, val xMax: Int,
-            val yMin: Int, val yMax: Int,
-            val zMin: Int, val zMax: Int)
+  class Cmd(
+      val signal: Int,
+      val xMin: Int,
+      val xMax: Int,
+      val yMin: Int,
+      val yMax: Int,
+      val zMin: Int,
+      val zMax: Int
+  )
 
   def parse(input: String): List[Cmd] =
-    val res: List[Cmd] = input.split('\n').toList.map(line =>
-      val parts = line.split(' ')
-      val signal: Int = if parts(0) == "on" then 1 else 0
-      val c: Array[Int] = parts(1).split(',')
-        .flatMap(s =>
-          s.substring(2).split("\\.\\.")
-        ).map(Integer.parseInt)
-      Cmd(signal, c(0), c(1), c(2), c(3), c(4), c(5))
-    )
+    val res: List[Cmd] = input
+      .split('\n')
+      .toList
+      .map(line =>
+        val parts = line.split(' ')
+        val signal: Int = if parts(0) == "on" then 1 else 0
+        val c: Array[Int] = parts(1)
+          .split(',')
+          .flatMap(s => s.substring(2).split("\\.\\."))
+          .map(Integer.parseInt)
+        Cmd(signal, c(0), c(1), c(2), c(3), c(4), c(5))
+      )
     res
 
   def solve1(commands: List[Cmd]): Long =
@@ -46,14 +56,13 @@ object Day22 extends AocDay[List[Cmd], Long]("data/day22"):
     def getIndex(xs: Array[Int], x: Int): Int =
       var low = 0
       var high = xs.length - 1
-      var ans = - 1
+      var ans = -1
       while low <= high do
         val mid = low + (high - low) / 2
         if xs(mid) <= x then
           ans = mid
           low = mid + 1
-        else
-          high = mid - 1
+        else high = mid - 1
       ans
 
     commands.foreach(c =>
@@ -70,9 +79,9 @@ object Day22 extends AocDay[List[Cmd], Long]("data/day22"):
       range(0, ys.length - 2).foreach(yi =>
         range(0, zs.length - 2).foreach(zi =>
           res = res + 1L * grid(xi)(yi)(zi)
-              * (xs(xi + 1) - xs(xi))
-              * (ys(yi + 1) - ys(yi))
-              * (zs(zi + 1) - zs(zi))
+            * (xs(xi + 1) - xs(xi))
+            * (ys(yi + 1) - ys(yi))
+            * (zs(zi + 1) - zs(zi))
         )
       )
     )

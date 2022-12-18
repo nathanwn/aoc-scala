@@ -1,3 +1,5 @@
+package y2021
+
 import lib.*
 
 import scala.collection.mutable
@@ -14,7 +16,8 @@ object Day15 extends AocDay[Array[Array[Int]], Int]("data/day15"):
 
     type PQEntry = ((Int, Int), Int) // ((r, c), d)
     // Min PQ by d
-    val pq: mutable.PriorityQueue[PQEntry] = mutable.PriorityQueue()(Ordering.by[PQEntry, Int](_._2).reverse)
+    val pq: mutable.PriorityQueue[PQEntry] =
+      mutable.PriorityQueue()(Ordering.by[PQEntry, Int](_._2).reverse)
     val distance = mutable.Map[(Int, Int), Int]()
 
     product(range(0, R - 1), range(0, C - 1))
@@ -27,17 +30,17 @@ object Day15 extends AocDay[Array[Array[Int]], Int]("data/day15"):
       val (u, d) = pq.dequeue()
       val (ur, uc) = u
 
-      if u == (R - 1, C - 1) then
-        return distance(u)
+      if u == (R - 1, C - 1) then return distance(u)
 
       if d == distance(u) then
         List((-1, 0), (1, 0), (0, -1), (0, 1)).foreach((dr, dc) =>
           val v: (Int, Int) = (ur + dr, uc + dc)
           val (vr, vc) = v
           if 0 <= vr && vr < grid.length && 0 <= vc && vc < grid(0).length
-            && distance(u) + grid(vr)(vc) < distance(v) then
-              distance(v) = distance(u) + grid(vr)(vc);
-              pq.addOne(v, distance(v))
+            && distance(u) + grid(vr)(vc) < distance(v)
+          then
+            distance(v) = distance(u) + grid(vr)(vc);
+            pq.addOne(v, distance(v))
         )
     0
 

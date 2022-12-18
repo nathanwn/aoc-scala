@@ -1,3 +1,5 @@
+package y2021
+
 import lib.*
 
 import scala.collection.mutable
@@ -12,7 +14,10 @@ object Day17 extends AocDay[((Int, Int), (Int, Int)), Int]("data/day17"):
     val coors: Array[String] = s.split("=")(1).split("\\.\\.")
     (coors(0).toInt, coors(1).toInt)
 
-  def travel(xRange: (Int, Int), yRange: (Int, Int))(vx0: Int, vy0: Int): Option[List[(Int, Int)]] =
+  def travel(xRange: (Int, Int), yRange: (Int, Int))(
+      vx0: Int,
+      vy0: Int
+  ): Option[List[(Int, Int)]] =
     val (xMin, xMax) = xRange
     val (yMin, yMax) = yRange
     var (vx, vy) = (vx0, vy0)
@@ -31,28 +36,36 @@ object Day17 extends AocDay[((Int, Int), (Int, Int)), Int]("data/day17"):
     val (xMin, xMax) = input._1
     val (yMin, yMax) = input._2
 
-    product(range(-200, 200), range(-200, 200)).map((vx, vy) =>
-      travel((xMin, xMax), (yMin, yMax))(vx, vy) match {
-        case None => Integer.MIN_VALUE
-        case Some(coors) =>
-          val within = coors
-            .filter((x, y) => x >= xMin && x <= xMax && y >= yMin && y <= yMax)
-          if within.isEmpty then Integer.MIN_VALUE
-          else coors.maxBy((x, y) => y)._2
-      }
-    ).max
+    product(range(-200, 200), range(-200, 200))
+      .map((vx, vy) =>
+        travel((xMin, xMax), (yMin, yMax))(vx, vy) match {
+          case None => Integer.MIN_VALUE
+          case Some(coors) =>
+            val within = coors
+              .filter((x, y) =>
+                x >= xMin && x <= xMax && y >= yMin && y <= yMax
+              )
+            if within.isEmpty then Integer.MIN_VALUE
+            else coors.maxBy((x, y) => y)._2
+        }
+      )
+      .max
 
   def solve2(input: ((Int, Int), (Int, Int))): Int =
     val (xMin, xMax) = input._1
     val (yMin, yMax) = input._2
 
-    product(range(-200, 200), range(-200, 200)).map((vx, vy) =>
-      travel((xMin, xMax), (yMin, yMax))(vx, vy) match {
-        case None => 0
-        case Some(coors) =>
-          val within = coors
-            .filter((x, y) => x >= xMin && x <= xMax && y >= yMin && y <= yMax)
-          if within.isEmpty then 0
-          else 1
-      }
-    ).sum
+    product(range(-200, 200), range(-200, 200))
+      .map((vx, vy) =>
+        travel((xMin, xMax), (yMin, yMax))(vx, vy) match {
+          case None => 0
+          case Some(coors) =>
+            val within = coors
+              .filter((x, y) =>
+                x >= xMin && x <= xMax && y >= yMin && y <= yMax
+              )
+            if within.isEmpty then 0
+            else 1
+        }
+      )
+      .sum

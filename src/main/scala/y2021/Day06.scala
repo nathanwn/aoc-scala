@@ -1,14 +1,17 @@
+package y2021
+
 import lib.*
 
 import scala.annotation.tailrec
 
-object Day06 extends AocDay[List[Long], Long]("data/day06") :
+object Day06 extends AocDay[List[Long], Long]("data/day06"):
   def parse(input: String): List[Long] =
     input.split(',').toList.map(s => s.toLong)
 
   def solve(finalDay: Int)(initTimers: List[Long]): Long =
     val counts = range(0, 8)
-      .map(t => initTimers.count(_ == t)).toArray
+      .map(t => initTimers.count(_ == t))
+      .toArray
 
     val D = finalDay;
     val T = 8;
@@ -20,7 +23,7 @@ object Day06 extends AocDay[List[Long], Long]("data/day06") :
           case (0, _) => f(d)(t) = counts(t)
           case (_, 6) => f(d)(t) = f(d - 1)(7) + f(d - 1)(0)
           case (_, 8) => f(d)(t) = f(d - 1)(0)
-          case _ => f(d)(t) = f(d - 1)(t + 1)
+          case _      => f(d)(t) = f(d - 1)(t + 1)
       )
     )
 

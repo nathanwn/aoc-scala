@@ -1,3 +1,5 @@
+package y2021
+
 import Day16.Node
 import lib.*
 
@@ -7,7 +9,8 @@ import scala.collection.mutable.ListBuffer
 object Day16 extends AocDay[Node, Long]("data/day16"):
   abstract class Node(version: Int)
   case class Literal(version: Int, value: Long) extends Node(version)
-  case class Operator(version: Int, typeId: Int, children: List[Node]) extends Node(version)
+  case class Operator(version: Int, typeId: Int, children: List[Node])
+      extends Node(version)
 
   def parse(input: String): Node =
     // My first attempt writing parser combinators
@@ -60,8 +63,8 @@ object Day16 extends AocDay[Node, Long]("data/day16"):
         (Operator(version, typeId, children), remain)
 
     def hexToBin(c: Char): String =
-      (if '0' <= c && c <= '9' then c - '0' else c - 'A' + 10)
-        .toBinaryString.reverse.padTo(4, '0').reverse
+      (if '0' <= c && c <= '9' then c - '0'
+       else c - 'A' + 10).toBinaryString.reverse.padTo(4, '0').reverse
 
     val bits = input.map(hexToBin).mkString
     parseNode(bits)._1
@@ -69,7 +72,7 @@ object Day16 extends AocDay[Node, Long]("data/day16"):
   override def solve1(root: Node): Long =
     def visit(node: Node): Long =
       node match
-        case Literal(version, _) => version
+        case Literal(version, _)            => version
         case Operator(version, _, children) => version + children.map(visit).sum
 
     visit(root)
@@ -84,8 +87,11 @@ object Day16 extends AocDay[Node, Long]("data/day16"):
             case 1 => children.map(visit).product
             case 2 => children.map(visit).min
             case 3 => children.map(visit).max
-            case 5 => children.map(visit).reduce((x, y) => if x > y then 1 else 0)
-            case 6 => children.map(visit).reduce((x, y) => if x < y then 1 else 0)
-            case 7 => children.map(visit).reduce((x, y) => if x == y then 1 else 0)
+            case 5 =>
+              children.map(visit).reduce((x, y) => if x > y then 1 else 0)
+            case 6 =>
+              children.map(visit).reduce((x, y) => if x < y then 1 else 0)
+            case 7 =>
+              children.map(visit).reduce((x, y) => if x == y then 1 else 0)
 
     visit(root)

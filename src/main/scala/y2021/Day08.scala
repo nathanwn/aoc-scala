@@ -1,7 +1,9 @@
+package y2021
+
 import Day08.{Entry, parseMask}
 import lib.*
 
-object Day08 extends AocDay[List[Entry], Int]("data/day08") :
+object Day08 extends AocDay[List[Entry], Int]("data/day08"):
   val digitMasks: Array[Int] = Array.ofDim[Int](10)
   digitMasks(0) = parseMask("abcefg")
   digitMasks(1) = parseMask("cf")
@@ -36,17 +38,21 @@ object Day08 extends AocDay[List[Entry], Int]("data/day08") :
 
   def solveEntry1(entry: Entry): Int =
     val f = solveMapping(entry)
-    entry.display.map(encodedMask =>
-      val digit = digitMasks.indexOf(decode(f)(encodedMask))
-      if List(1, 4, 7, 8).contains(digit) then 1 else 0
-    ).sum
+    entry.display
+      .map(encodedMask =>
+        val digit = digitMasks.indexOf(decode(f)(encodedMask))
+        if List(1, 4, 7, 8).contains(digit) then 1 else 0
+      )
+      .sum
 
   def solveEntry2(entry: Entry): Int =
     val f = solveMapping(entry)
-    entry.display.map(encodedMask =>
-      val digit = digitMasks.indexOf(decode(f)(encodedMask));
-      digit
-    ).reduce((lhs, rhs) => lhs * 10 + rhs)
+    entry.display
+      .map(encodedMask =>
+        val digit = digitMasks.indexOf(decode(f)(encodedMask));
+        digit
+      )
+      .reduce((lhs, rhs) => lhs * 10 + rhs)
 
   def solveMapping(entry: Entry): Array[Int] =
     // Find the correct mapping f(c) where c is a segment
@@ -59,10 +65,10 @@ object Day08 extends AocDay[List[Entry], Int]("data/day08") :
     )
     mapping match {
       case Some(f) => f
-      case None => Array.ofDim(0)
+      case None    => Array.ofDim(0)
     }
 
   def decode(f: Array[Int])(encodedMask: Int): Int =
-    range(0, 6).map(c =>
-      if (encodedMask & (1 << f(c))) != 0 then 1 << c else 0
-    ).sum
+    range(0, 6)
+      .map(c => if (encodedMask & (1 << f(c))) != 0 then 1 << c else 0)
+      .sum

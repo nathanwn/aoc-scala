@@ -1,3 +1,5 @@
+package y2021
+
 import Day19.Vec
 import lib.*
 
@@ -73,25 +75,31 @@ object Day19 extends AocDay[Array[List[Vec]], Int]("data/day19"):
       res
 
     def rotateX(a: Int): SqMat =
-      this * SqMat(Array(
-        Array(1, 0, 0),
-        Array(0, cos(a), -sin(a)),
-        Array(0, sin(a), cos(a))
-      ))
+      this * SqMat(
+        Array(
+          Array(1, 0, 0),
+          Array(0, cos(a), -sin(a)),
+          Array(0, sin(a), cos(a))
+        )
+      )
 
     def rotateY(a: Int): SqMat =
-      this * SqMat(Array(
-        Array(cos(a), 0, sin(a)),
-        Array(0, 1, 0),
-        Array(-sin(a), 0, cos(a))
-      ))
+      this * SqMat(
+        Array(
+          Array(cos(a), 0, sin(a)),
+          Array(0, 1, 0),
+          Array(-sin(a), 0, cos(a))
+        )
+      )
 
     def rotateZ(a: Int): SqMat =
-      this * SqMat(Array(
-        Array(cos(a), -sin(a), 0),
-        Array(sin(a), cos(a), 0),
-        Array(0, 0, 1)
-      ))
+      this * SqMat(
+        Array(
+          Array(cos(a), -sin(a), 0),
+          Array(sin(a), cos(a), 0),
+          Array(0, 0, 1)
+        )
+      )
 
     override def toString: String =
       val builder: StringBuilder = StringBuilder()
@@ -106,23 +114,23 @@ object Day19 extends AocDay[Array[List[Vec]], Int]("data/day19"):
       builder.toString
 
   def parse(input: String): Array[List[Vec]] =
-    input.substring(input.indexOf("\n") + 1)
+    input
+      .substring(input.indexOf("\n") + 1)
       .split("\n\n--- scanner \\d* ---\n")
       .map(scannerInput =>
-        scannerInput.split('\n').toList.map(line =>
-          new Vec(line.split(',').map(Integer.parseInt))
-        )
+        scannerInput
+          .split('\n')
+          .toList
+          .map(line => new Vec(line.split(',').map(Integer.parseInt)))
       )
 
   def intersect(sortedListA: List[Vec], sortedListB: List[Vec]): Int =
-    if sortedListA.isEmpty || sortedListB.isEmpty then
-      0
+    if sortedListA.isEmpty || sortedListB.isEmpty then 0
     else if sortedListA.head == sortedListB.head then
       1 + intersect(sortedListA.tail, sortedListB.tail)
     else if sortedListA.head < sortedListB.head then
       intersect(sortedListA.tail, sortedListB)
-    else
-      intersect(sortedListA, sortedListB.tail)
+    else intersect(sortedListA, sortedListB.tail)
 
   def connect(us: List[Vec], vs0: List[Vec], B: SqMat): Option[Vec] =
     val vs = vs0.map(v => B * v)
@@ -141,19 +149,21 @@ object Day19 extends AocDay[Array[List[Vec]], Int]("data/day19"):
   class Position(val from: Int, val o: Vec, val B: SqMat)
 
   def solve(scanners: Array[List[Vec]]): Array[Position] =
-    val B0 = SqMat(Array(
-      Array(1, 0, 0),
-      Array(0, 1, 0),
-      Array(0, 0, 1),
-    ))
+    val B0 = SqMat(
+      Array(
+        Array(1, 0, 0),
+        Array(0, 1, 0),
+        Array(0, 0, 1)
+      )
+    )
 
-    val Bs = (0 until 359 by 90).flatMap(ax =>
-      (0 until 359 by 90).flatMap(ay =>
-        (0 until 359 by 90).map(az =>
-          B0.rotateX(ax).rotateY(ay).rotateZ(az)
+    val Bs = (0 until 359 by 90)
+      .flatMap(ax =>
+        (0 until 359 by 90).flatMap(ay =>
+          (0 until 359 by 90).map(az => B0.rotateX(ax).rotateY(ay).rotateZ(az))
         )
       )
-    ).distinctBy(_.toString)
+      .distinctBy(_.toString)
 
     val ps = Array.fill[Option[Position]](scanners.length)(None)
     val q: mutable.Queue[Int] = mutable.Queue()
@@ -165,15 +175,16 @@ object Day19 extends AocDay[Array[List[Vec]], Int]("data/day19"):
       val i = q.dequeue()
       ps(i) match
         case Some(p) => println(s"(${p.from}, $i)")
-        case _ =>
+        case _       =>
       for (j <- scanners.indices)
         if i != j && ps(j).isEmpty then
-          Bs.find(B => (connect(scanners(i), scanners(j), B), ps(i)) match
-            case (Some(d), Some(p)) =>
-              ps(j) = Some(Position(i, p.o + p.B * d, p.B * B));
-              q.enqueue(j)
-              true
-            case _ => false
+          Bs.find(B =>
+            (connect(scanners(i), scanners(j), B), ps(i)) match
+              case (Some(d), Some(p)) =>
+                ps(j) = Some(Position(i, p.o + p.B * d, p.B * B));
+                q.enqueue(j)
+                true
+              case _ => false
           )
 
     ps.flatten
