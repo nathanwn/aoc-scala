@@ -1,6 +1,3 @@
-ThisBuild / scalaVersion := "3.2.0"
-
-lazy val aoc = (project in file("."))
-  .settings(
-    name := "AoC"
-  )
+name := "aoc"
+scalaVersion := "3.2.0"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.11" % Test
