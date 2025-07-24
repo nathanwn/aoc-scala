@@ -28,10 +28,20 @@
 | Day 24                                           |
 | Day 25                                           |
 
-## Tips
-
-For certain problems, I had to increase the heap size (e.g. day 22 of 2021):
+## Usage
 
 ```
-export SBT_OPTS="-Xmx3G -Xms1G"
+# Using sbt...
+
+# Run a solution for part 1, day 3 of year 2021
+sbt:aoc> runMain main 2021 3 1
+
+# Test a solution for day 3 of year 2021
+sbt:aoc> testOnly years.y2021.Day03Suite
+
+# Test everything
+sbt:aoc> test
+
+# Format everything
+sbt:aoc> scalafmtAll
 ```
