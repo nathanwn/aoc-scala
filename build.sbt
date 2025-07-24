@@ -9,3 +9,6 @@ javaOptions ++= Seq(
   "-Xmx4G",       // max heap
   "-XX:+UseG1GC"  // better GC for large heaps
 )
+
+// Show time taken for tests
+Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oD")
