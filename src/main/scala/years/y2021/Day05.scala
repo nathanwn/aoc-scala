@@ -4,7 +4,7 @@ import Day05.Segment
 import lib.day.AocDay
 import lib.geometry
 
-object Day05 extends AocDay[List[Segment], Int]("data/y2021/Day05"):
+object Day05 extends AocDay[List[Segment], Int]:
   class Point(override val x: Int, override val y: Int)
       extends geometry.Point[Int](x, y)
 
@@ -46,7 +46,7 @@ object Day05 extends AocDay[List[Segment], Int]("data/y2021/Day05"):
     val points: Seq[Point] = segments
       .flatMap(segment => segment.interpolate(doCountDiagonals))
     val pointCounts = points.groupBy(p => (p.x, p.y)).view.mapValues(_.size)
-    pointCounts.toList.filter((_, count) => count > 1).length
+    pointCounts.toList.count((_, count) => count > 1)
 
   def solve1(data: List[Segment]): Int = solve(doCountDiagonals = false)(data)
 

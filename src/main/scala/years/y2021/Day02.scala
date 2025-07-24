@@ -4,7 +4,7 @@ import lib.day.AocDay
 
 import scala.collection.mutable
 
-object Day02 extends AocDay[Seq[(String, Int)], Int]("data/y2021/Day02"):
+object Day02 extends AocDay[Seq[(String, Int)], Int]:
   def parse(input: String): Seq[(String, Int)] =
     input
       .split("\n")

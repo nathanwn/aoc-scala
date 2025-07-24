@@ -3,7 +3,7 @@ package years.y2021
 import Day08.{Entry, parseMask}
 import lib.day.AocDay
 
-object Day08 extends AocDay[List[Entry], Int]("data/y2021/Day08"):
+object Day08 extends AocDay[List[Entry], Int]:
   val digitMasks: Array[Int] = Array.ofDim[Int](10)
   digitMasks(0) = parseMask("abcefg")
   digitMasks(1) = parseMask("cf")

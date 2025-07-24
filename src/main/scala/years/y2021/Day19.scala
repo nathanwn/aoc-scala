@@ -5,7 +5,7 @@ import lib.day.AocDay
 
 import scala.collection.mutable
 
-object Day19 extends AocDay[Array[List[Vec]], Int]("data/y2021/Day19"):
+object Day19 extends AocDay[Array[List[Vec]], Int]:
   def cos(alpha: Int): Int = Math.round(Math.cos(Math.toRadians(alpha))).toInt
   def sin(alpha: Int): Int = Math.round(Math.sin(Math.toRadians(alpha))).toInt
 

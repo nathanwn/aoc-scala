@@ -5,8 +5,7 @@ import lib.day.AocDay
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
-object Day14
-    extends AocDay[(Array[Char], Map[String, Char]), Long]("data/y2021/Day14"):
+object Day14 extends AocDay[(Array[Char], Map[String, Char]), Long]:
   def parse(input: String): (Array[Char], Map[String, Char]) =
     val parts = input.split("\n\n")
     val s = parts(0).toArray

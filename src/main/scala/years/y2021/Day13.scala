@@ -2,10 +2,7 @@ package years.y2021
 
 import lib.day.AocDay
 
-object Day13
-    extends AocDay[(List[(Int, Int)], List[(Int, Int)]), Int](
-      "data/y2021/Day13"
-    ):
+object Day13 extends AocDay[(List[(Int, Int)], List[(Int, Int)]), Int]:
   val VER = 0
   val HOR = 1
 

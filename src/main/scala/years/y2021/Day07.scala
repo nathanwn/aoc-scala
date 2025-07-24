@@ -3,7 +3,7 @@ package years.y2021
 import lib.day.AocDay
 
 // Page 61 of CP Handbook mentions this problem
-object Day07 extends AocDay[List[Int], Int]("data/y2021/Day07"):
+object Day07 extends AocDay[List[Int], Int]:
   def parse(input: String): List[Int] =
     input.split(',').toList.map(s => s.toInt)
 

@@ -2,8 +2,7 @@ package years.y2021
 
 import lib.day.AocDay
 
-object Day20
-    extends AocDay[(Array[Int], Array[Array[Int]]), Int]("data/y2021/Day20"):
+object Day20 extends AocDay[(Array[Int], Array[Array[Int]]), Int]:
   val adj: Seq[(Int, Int)] =
     for
       i <- -1 to 1;

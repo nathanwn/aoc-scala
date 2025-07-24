@@ -3,7 +3,7 @@ package years.y2021
 import scala.annotation.tailrec
 import lib.day.AocDay
 
-object Day06 extends AocDay[List[Long], Long]("data/y2021/Day06"):
+object Day06 extends AocDay[List[Long], Long]:
   def parse(input: String): List[Long] =
     input.split(',').toList.map(s => s.toLong)
 

@@ -5,7 +5,7 @@ import lib.day.AocDay
 import scala.annotation.tailrec
 import scala.collection.mutable
 
-object Day11 extends AocDay[Array[Array[Int]], Int]("data/y2021/Day11"):
+object Day11 extends AocDay[Array[Array[Int]], Int]:
   val SIZE = 10
   val adj: Seq[(Int, Int)] =
     for

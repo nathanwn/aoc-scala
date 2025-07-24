@@ -4,7 +4,7 @@ import lib.day.AocDay
 
 import scala.collection.mutable
 
-object Day23 extends AocDay[Array[Array[Char]], Long]("data/y2021/Day23"):
+object Day23 extends AocDay[Array[Array[Char]], Long]:
   type Cell = (Int, Int)
   val weights = Map('A' -> 1, 'B' -> 10, 'C' -> 100, 'D' -> 1000)
   val cRoom = Map('A' -> 3, 'B' -> 5, 'C' -> 7, 'D' -> 9)

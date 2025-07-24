@@ -1,9 +1,9 @@
 package lib.day
 
+import java.io.BufferedReader
 import scala.io.Source
-import scala.util.{Try, Using}
 
-abstract class AocDay[InputType, OutputType <: AnyVal](val dataDir: String) {
+abstract class AocDay[InputType, OutputType <: AnyVal] {
   def parse(text: String): InputType
 
   def solve1(data: InputType): OutputType
@@ -20,13 +20,28 @@ abstract class AocDay[InputType, OutputType <: AnyVal](val dataDir: String) {
     val solver: InputType => OutputType = getSolver(taskId)
     solver(data)
 
-  def parseInputFile(fileName: String): InputType =
-    val fileContent = Using(Source.fromFile(s"$dataDir/$fileName")) { source =>
-      source.mkString
-    }.get
-    parse(fileContent)
+  private def parseInputFile(fileName: String): InputType =
+    val resourceFileContent: BufferedReader = Source
+      .fromResource(
+        s"${this.getClass.getPackageName.split('.').last}/${this.getClass.getSimpleName
+            .stripSuffix("$")}/$fileName"
+      )
+      .bufferedReader()
+    parse(readFileToString(resourceFileContent))
 
-  def getSolver(taskId: Int): InputType => OutputType =
+  private def readFileToString(reader: BufferedReader): String =
+    val sb = new StringBuilder
+    try {
+      var line = reader.readLine()
+      while (line != null) {
+        sb.append(line)
+        sb.append(System.lineSeparator())
+        line = reader.readLine()
+      }
+    } finally reader.close()
+    sb.toString().strip()
+
+  private def getSolver(taskId: Int): InputType => OutputType =
     taskId match
       case 1 => solve1
       case 2 => solve2

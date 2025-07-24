@@ -6,7 +6,7 @@ import lib.day.AocDay
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
-object Day16 extends AocDay[Node, Long]("data/y2021/Day16"):
+object Day16 extends AocDay[Node, Long]:
   abstract class Node(version: Int)
   case class Literal(version: Int, value: Long) extends Node(version)
   case class Operator(version: Int, typeId: Int, children: Seq[Node])

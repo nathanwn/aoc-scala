@@ -7,7 +7,7 @@ import scala.annotation.tailrec
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
-object Day18 extends AocDay[List[Node], Int]("data/y2021/Day18"):
+object Day18 extends AocDay[List[Node], Int]:
   abstract class Node:
     var parent: Option[InnerNode]
 

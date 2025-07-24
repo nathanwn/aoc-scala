@@ -5,7 +5,7 @@ import lib.day.AocDay
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
-object Day12 extends AocDay[Map[String, List[String]], Int]("data/y2021/Day12"):
+object Day12 extends AocDay[Map[String, List[String]], Int]:
   def parse(input: String): Map[String, List[String]] =
     var g: Map[String, ListBuffer[String]] = Map()
     input

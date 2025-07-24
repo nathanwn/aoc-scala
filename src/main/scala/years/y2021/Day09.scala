@@ -4,7 +4,7 @@ import lib.day.AocDay
 
 import scala.collection.mutable
 
-object Day09 extends AocDay[Array[Array[Int]], Int]("data/y2021/Day09"):
+object Day09 extends AocDay[Array[Array[Int]], Int]:
   val adj: List[(Int, Int)] = List((1, 0), (-1, 0), (0, 1), (0, -1))
 
   def parse(input: String): Array[Array[Int]] =

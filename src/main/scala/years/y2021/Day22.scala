@@ -5,7 +5,7 @@ import lib.day.AocDay
 
 import scala.collection.mutable
 
-object Day22 extends AocDay[List[Cmd], Long]("data/y2021/Day22"):
+object Day22 extends AocDay[List[Cmd], Long]:
   class Cmd(
       val signal: Int,
       val xMin: Int,

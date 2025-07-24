@@ -5,7 +5,7 @@ import lib.day.AocDay
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
-object Day15 extends AocDay[Array[Array[Int]], Int]("data/y2021/Day15"):
+object Day15 extends AocDay[Array[Array[Int]], Int]:
   def parse(input: String): Array[Array[Int]] =
     input.split('\n').map(line => line.map(c => c - '0').toArray)
 

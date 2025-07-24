@@ -4,7 +4,7 @@ import lib.day.AocDay
 
 import scala.collection.mutable
 
-object Day10 extends AocDay[List[List[Char]], Long]("data/y2021/Day10"):
+object Day10 extends AocDay[List[List[Char]], Long]:
   val leftBrackets: List[Char] = List[Char]('(', '[', '{', '<')
   val rightBrackets: List[Char] = List[Char](')', ']', '}', '>')
   val cScores: List[Int] = List[Int](3, 57, 1197, 25137)

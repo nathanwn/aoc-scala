@@ -1,3 +1,11 @@
 name := "aoc"
-scalaVersion := "3.2.0"
+scalaVersion := "3.3.6"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.11" % Test
+
+// Increase heap size for running tests
+Test / fork := true
+
+javaOptions ++= Seq(
+  "-Xmx4G",       // max heap
+  "-XX:+UseG1GC"  // better GC for large heaps
+)
