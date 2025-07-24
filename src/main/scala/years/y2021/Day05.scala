@@ -29,7 +29,7 @@ object Day05 extends AocDay[List[Segment], Int]:
                     .map((x, y) => Point(x, y))
             else List[Point]()
 
-    def parsePoint(input: String): Point =
+    private def parsePoint(input: String): Point =
         val coors = input.split(',')
         Point(coors(0).toInt, coors(1).toInt)
 

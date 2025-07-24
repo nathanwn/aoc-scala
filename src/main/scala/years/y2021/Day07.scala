@@ -20,6 +20,5 @@ object Day07 extends AocDay[List[Int], Int]:
                     val d = Math.abs(avg - x)
                     d * (d + 1) / 2
                 ).sum
-                    .toInt
             )
             .min

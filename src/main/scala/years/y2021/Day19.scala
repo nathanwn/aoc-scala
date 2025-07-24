@@ -6,8 +6,10 @@ import lib.day.AocDay
 import scala.collection.mutable
 
 object Day19 extends AocDay[Array[List[Vec]], Int]:
-    def cos(alpha: Int): Int = Math.round(Math.cos(Math.toRadians(alpha))).toInt
-    def sin(alpha: Int): Int = Math.round(Math.sin(Math.toRadians(alpha))).toInt
+    private def cos(alpha: Int): Int =
+        Math.round(Math.cos(Math.toRadians(alpha))).toInt
+    private def sin(alpha: Int): Int =
+        Math.round(Math.sin(Math.toRadians(alpha))).toInt
 
     class Vec(val n: Int, val keys: Array[Int]) extends Ordered[Vec]:
         def this(n: Int) = this(n, Array.fill(n)(0))
@@ -125,7 +127,7 @@ object Day19 extends AocDay[Array[List[Vec]], Int]:
                     .map(line => new Vec(line.split(',').map(Integer.parseInt)))
             )
 
-    def intersect(sortedListA: List[Vec], sortedListB: List[Vec]): Int =
+    private def intersect(sortedListA: List[Vec], sortedListB: List[Vec]): Int =
         if sortedListA.isEmpty || sortedListB.isEmpty then 0
         else if sortedListA.head == sortedListB.head then
             1 + intersect(sortedListA.tail, sortedListB.tail)
@@ -133,7 +135,7 @@ object Day19 extends AocDay[Array[List[Vec]], Int]:
             intersect(sortedListA.tail, sortedListB)
         else intersect(sortedListA, sortedListB.tail)
 
-    def connect(us: List[Vec], vs0: List[Vec], B: SqMat): Option[Vec] =
+    private def connect(us: List[Vec], vs0: List[Vec], B: SqMat): Option[Vec] =
         val vs = vs0.map(v => B * v)
         (for
             u0 <- us;
@@ -180,9 +182,9 @@ object Day19 extends AocDay[Array[List[Vec]], Int]:
 
         while q.nonEmpty do
             val i = q.dequeue()
-            ps(i) match
-                case Some(p) => println(s"(${p.from}, $i)")
-                case _       =>
+            // ps(i) match
+            //     case Some(p) => println(s"(${p.from}, $i)")
+            //     case _       =>
             for (j <- scanners.indices)
                 if i != j && ps(j).isEmpty then
                     Bs.find(B =>
@@ -198,9 +200,9 @@ object Day19 extends AocDay[Array[List[Vec]], Int]:
         ps.flatten
 
     def solve1(scanners: Array[List[Vec]]): Int =
-        val set = mutable.TreeSet[Vec]()
         val ps = solve(scanners)
-        (0 until ps.length).foreach(i =>
+        val set = mutable.TreeSet[Vec]()
+        ps.indices.foreach(i =>
             val p = ps(i)
             scanners(i).map(relative => p.o + p.B * relative).map(set.add)
         )

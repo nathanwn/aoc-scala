@@ -3,7 +3,6 @@ package years.y2021
 import lib.day.AocDay
 
 import scala.collection.mutable
-import scala.collection.mutable.ListBuffer
 
 object Day15 extends AocDay[Array[Array[Int]], Int]:
     def parse(input: String): Array[Array[Int]] =

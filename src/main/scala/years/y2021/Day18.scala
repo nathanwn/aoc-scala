@@ -4,8 +4,6 @@ import Day18.Node
 import lib.day.AocDay
 
 import scala.annotation.tailrec
-import scala.collection.mutable
-import scala.collection.mutable.ListBuffer
 
 object Day18 extends AocDay[List[Node], Int]:
     abstract class Node:
@@ -57,11 +55,11 @@ object Day18 extends AocDay[List[Node], Int]:
 
         input.split('\n').toList.flatMap(parseNode(None))
 
-    def reduce(tree: Node): Unit =
+    private def reduce(tree: Node): Unit =
         var done = false
         while explode(tree) || split(tree) do None
 
-    def explode(node: Node, level: Int = 0): Boolean =
+    private def explode(node: Node, level: Int = 0): Boolean =
         node match
             case _: LeafNode => false
             case innerNode: InnerNode =>
@@ -96,7 +94,7 @@ object Day18 extends AocDay[List[Node], Int]:
                         explode(left, level + 1) || explode(right, level + 1)
                     case _ => throw new java.lang.RuntimeException()
 
-    def split(node: Node): Boolean =
+    private def split(node: Node): Boolean =
         node match
             case innerNode: InnerNode =>
                 (innerNode.left, innerNode.right) match
@@ -124,14 +122,14 @@ object Day18 extends AocDay[List[Node], Int]:
                     true
             case _ => throw new java.lang.RuntimeException()
 
-    def magnitude(node: Option[Node]): Int =
+    private def magnitude(node: Option[Node]): Int =
         node match
             case Some(node: InnerNode) =>
                 3 * magnitude(node.left) + 2 * magnitude(node.right)
             case Some(node: LeafNode) => node.value
             case _                    => 0
 
-    def firstLeafOnTheLeft(node: Node): Option[LeafNode] =
+    private def firstLeafOnTheLeft(node: Node): Option[LeafNode] =
         @tailrec
         def walkUp(node: Node): Option[InnerNode] =
             node.parent match
@@ -159,7 +157,7 @@ object Day18 extends AocDay[List[Node], Int]:
                     case _ => None
             case _ => None
 
-    def firstLeafOnTheRight(node: Node): Option[LeafNode] =
+    private def firstLeafOnTheRight(node: Node): Option[LeafNode] =
         @tailrec
         def walkUp(node: Node): Option[InnerNode] =
             node.parent match
@@ -187,13 +185,13 @@ object Day18 extends AocDay[List[Node], Int]:
                     case _ => None
             case _ => None
 
-    def combine(left: Node, right: Node): InnerNode =
+    private def combine(left: Node, right: Node): InnerNode =
         val tree = InnerNode(None, Some(left), Some(right))
         left.parent = Some(tree)
         right.parent = Some(tree)
         tree
 
-    def copy(node: Option[Node], parent: Option[InnerNode] = None): Node =
+    private def copy(node: Option[Node], parent: Option[InnerNode] = None): Node =
         node match
             case Some(innerNode: InnerNode) =>
                 val clonedNode = InnerNode(parent)
@@ -215,7 +213,7 @@ object Day18 extends AocDay[List[Node], Int]:
     def solve2(trees: List[Node]): Int =
         val a = trees.toArray
         (for
-            i <- 0 until trees.length - 1;
+            i <- 0 until trees.length - 1
             j <- 0 until trees.length - 1
         yield (i, j))
             .map((i, j) =>

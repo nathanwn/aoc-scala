@@ -6,7 +6,7 @@ import scala.annotation.tailrec
 import scala.collection.mutable
 
 object Day11 extends AocDay[Array[Array[Int]], Int]:
-    val SIZE = 10
+    private final val SIZE = 10
     val adj: Seq[(Int, Int)] =
         for
             i <- -1 to 1;
@@ -49,7 +49,7 @@ object Day11 extends AocDay[Array[Array[Int]], Int]:
 
         stepTransform(0)
 
-    def autoTransform(grid: Array[Array[Int]]): Int =
+    private def autoTransform(grid: Array[Array[Int]]): Int =
         val flashing: Seq[(Int, Int)] =
             for
                 r <- 0 until SIZE;
@@ -68,11 +68,11 @@ object Day11 extends AocDay[Array[Array[Int]], Int]:
         flashing.foreach((r, c) => grid(r)(c) = 0)
         flashing.size + autoTransform(grid)
 
-    def inside(grid: Array[Array[Int]])(u: (Int, Int)): Boolean =
+    private def inside(grid: Array[Array[Int]])(u: (Int, Int)): Boolean =
         val (r, c) = u
         0 <= r && r < grid.length && 0 <= c && c < grid(0).length
 
-    def printGrid(grid: Array[Array[Int]]): Unit =
+    private def printGrid(grid: Array[Array[Int]]): Unit =
         grid.foreach(row =>
             row.foreach(cell => print(cell))
             println()

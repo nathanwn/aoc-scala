@@ -8,8 +8,8 @@ import scala.collection.mutable.ListBuffer
 
 object Day16 extends AocDay[Node, Long]:
     abstract class Node(version: Int)
-    case class Literal(version: Int, value: Long) extends Node(version)
-    case class Operator(version: Int, typeId: Int, children: Seq[Node])
+    private case class Literal(version: Int, value: Long) extends Node(version)
+    private case class Operator(version: Int, typeId: Int, children: Seq[Node])
         extends Node(version)
 
     def parse(input: String): Node =

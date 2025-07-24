@@ -5,10 +5,10 @@ import lib.day.AocDay
 import scala.collection.mutable
 
 object Day23 extends AocDay[Array[Array[Char]], Long]:
-    type Cell = (Int, Int)
-    val weights = Map('A' -> 1, 'B' -> 10, 'C' -> 100, 'D' -> 1000)
-    val cRoom = Map('A' -> 3, 'B' -> 5, 'C' -> 7, 'D' -> 9)
-    val agents: List[Char] = weights.keys.toList
+    private type Cell = (Int, Int)
+    private val weights = Map('A' -> 1, 'B' -> 10, 'C' -> 100, 'D' -> 1000)
+    private val cRoom = Map('A' -> 3, 'B' -> 5, 'C' -> 7, 'D' -> 9)
+    private val agents: List[Char] = weights.keys.toList
 
     object Direction:
         val Up: (Int, Int) = (-1, 0)
@@ -66,7 +66,7 @@ object Day23 extends AocDay[Array[Array[Char]], Long]:
                 assert((2 to grid.length - 2).contains(rFrom))
                 assert(agents.contains(agent))
 
-                if rFrom > 2 && (2 to rFrom - 1).exists(this(_, cFrom) != '.')
+                if rFrom > 2 && (2 until rFrom).exists(this(_, cFrom) != '.')
                 then return List()
 
                 val hallwayCells = (1 to 11)
@@ -97,7 +97,7 @@ object Day23 extends AocDay[Array[Array[Char]], Long]:
                 assert((2 to grid.length - 2).contains(rFrom))
                 assert(agents.contains(agent))
 
-                if rFrom > 2 && (2 to rFrom - 1).exists(this(_, cFrom) != '.')
+                if rFrom > 2 && (2 until rFrom).exists(this(_, cFrom) != '.')
                 then return None
 
                 val cTo = cRoom(agent)
@@ -186,7 +186,7 @@ object Day23 extends AocDay[Array[Array[Char]], Long]:
     def parse(input: String): Array[Array[Char]] =
         input.split('\n').map(line => line.toCharArray)
 
-    def Dijkstra(source: Node): Long =
+    private def runDijkstra(source: Node): Long =
         type PQEntry = (Node, Int, Option[Node]) // (v, d, u)
         val pq: mutable.PriorityQueue[PQEntry] =
             mutable.PriorityQueue()(Ordering.by[PQEntry, Int](_._2).reverse)
@@ -211,7 +211,7 @@ object Day23 extends AocDay[Array[Array[Char]], Long]:
         0L
 
     def solve1(grid: Array[Array[Char]]): Long =
-        Dijkstra(new Node(grid))
+        runDijkstra(new Node(grid))
 
     def solve2(grid: Array[Array[Char]]): Long =
         val newGrid = Array(
@@ -223,4 +223,4 @@ object Day23 extends AocDay[Array[Array[Char]], Long]:
           grid(3),
           grid(4)
         )
-        Dijkstra(new Node(newGrid))
+        runDijkstra(new Node(newGrid))

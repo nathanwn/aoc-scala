@@ -3,8 +3,8 @@ package years.y2021
 import lib.day.AocDay
 
 object Day13 extends AocDay[(List[(Int, Int)], List[(Int, Int)]), Int]:
-    val VER = 0
-    val HOR = 1
+    private final val VER = 0
+    private final val HOR = 1
 
     def parse(input: String): (List[(Int, Int)], List[(Int, Int)]) =
         val parts = input.split("\n\n")
@@ -41,28 +41,28 @@ object Day13 extends AocDay[(List[(Int, Int)], List[(Int, Int)]), Int]:
         var grid = Array.fill(xMax + 1, yMax + 1)(false)
         dots.foreach((x, y) => grid(x)(y) = true)
         cmds.foreach(cmd => grid = fold(cmd)(grid))
-        (0 until grid(0).length).foreach(y =>
-            (0 until grid.length).foreach(x =>
+        grid(0).indices.foreach(y =>
+            grid.indices.foreach(x =>
                 if grid(x)(y) then print("#") else print(" ")
             )
             println();
         )
         grid.map(row => row.count(_ == true)).sum
 
-    def fold(
+    private def fold(
         cmd: (Int, Int)
     )(grid: Array[Array[Boolean]]): Array[Array[Boolean]] =
         if cmd(0) == HOR
         then foldHor(cmd(1))(grid)
         else foldVer(cmd(1))(grid)
 
-    def foldVer(X: Int)(grid: Array[Array[Boolean]]): Array[Array[Boolean]] =
+    private def foldVer(X: Int)(grid: Array[Array[Boolean]]): Array[Array[Boolean]] =
         val Y = grid(0).length
         val newGrid = Array.ofDim[Boolean](X, Y)
         (for
             x <- 0 until X;
             y <- 0 until Y
-        yield (x, y)).map((x, y) =>
+        yield (x, y)).foreach((x, y) =>
             newGrid(x)(y) =
                 if 2 * X - x >= grid.length
                 then grid(x)(y)
@@ -70,13 +70,13 @@ object Day13 extends AocDay[(List[(Int, Int)], List[(Int, Int)]), Int]:
         )
         newGrid
 
-    def foldHor(Y: Int)(grid: Array[Array[Boolean]]): Array[Array[Boolean]] =
+    private def foldHor(Y: Int)(grid: Array[Array[Boolean]]): Array[Array[Boolean]] =
         val X = grid.length
         val newGrid = Array.ofDim[Boolean](X, Y)
         (for
             x <- 0 until X;
             y <- 0 until Y
-        yield (x, y)).map((x, y) =>
+        yield (x, y)).foreach((x, y) =>
             newGrid(x)(y) =
                 if 2 * Y - y >= grid(0).length
                 then grid(x)(y)

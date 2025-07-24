@@ -25,9 +25,9 @@ object Day09 extends AocDay[Array[Array[Int]], Int]:
             .take(3)
             .product
 
-    def lowPoints(grid: Array[Array[Int]]): List[(Int, Int)] =
-        val points: List[(Int, Int)] = (0 until grid.length)
-            .flatMap(r => (0 until grid(0).length).map(c => (r, c)))
+    private def lowPoints(grid: Array[Array[Int]]): List[(Int, Int)] =
+        val points: List[(Int, Int)] = grid.indices
+            .flatMap(r => grid(0).indices.map(c => (r, c)))
             .toList
         points.filter((r, c) =>
             adj.forall((dr, dc) =>
@@ -37,11 +37,11 @@ object Day09 extends AocDay[Array[Array[Int]], Int]:
             )
         )
 
-    def inside(grid: Array[Array[Int]])(u: (Int, Int)): Boolean =
+    private def inside(grid: Array[Array[Int]])(u: (Int, Int)): Boolean =
         val (r, c) = u
         0 <= r && r < grid.length && 0 <= c && c < grid(0).length
 
-    def basinSize(grid: Array[Array[Int]])(s: (Int, Int)): Int =
+    private def basinSize(grid: Array[Array[Int]])(s: (Int, Int)): Int =
         val visited = Array.ofDim[Boolean](grid.length, grid(0).length)
         val q: mutable.Queue[(Int, Int)] = mutable.Queue()
         q.addOne(s)

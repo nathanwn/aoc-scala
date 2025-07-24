@@ -1,6 +1,5 @@
 package years.y2021
 
-import scala.annotation.tailrec
 import lib.day.AocDay
 
 object Day06 extends AocDay[List[Long], Long]:

@@ -10,11 +10,11 @@ object Day17 extends AocDay[((Int, Int), (Int, Int)), Int]:
         val coors = input.split(": ")(1).split(", ")
         (parseCoors(coors(0)), parseCoors(coors(1)))
 
-    def parseCoors(s: String): (Int, Int) =
+    private def parseCoors(s: String): (Int, Int) =
         val coors: Array[String] = s.split("=")(1).split("\\.\\.")
         (coors(0).toInt, coors(1).toInt)
 
-    def travel(xRange: (Int, Int), yRange: (Int, Int))(
+    private def travel(xRange: (Int, Int), yRange: (Int, Int))(
         vx0: Int,
         vy0: Int
     ): Option[List[(Int, Int)]] =

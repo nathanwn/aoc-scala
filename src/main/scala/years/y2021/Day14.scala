@@ -3,7 +3,6 @@ package years.y2021
 import lib.day.AocDay
 
 import scala.collection.mutable
-import scala.collection.mutable.ListBuffer
 
 object Day14 extends AocDay[(Array[Char], Map[String, Char]), Long]:
     def parse(input: String): (Array[Char], Map[String, Char]) =
@@ -19,11 +18,11 @@ object Day14 extends AocDay[(Array[Char], Map[String, Char]), Long]:
             .toMap
         (s, rules)
 
-    def solveSlow(steps: Int)(input: (Array[Char], Map[String, Char])): Int =
+    private def solveSlow(steps: Int)(input: (Array[Char], Map[String, Char])): Int =
         var s = input._1
         val rules = input._2
         for _ <- 0 until steps do
-            val insertions = (0 until s.length)
+            val insertions = s.indices
                 .map(i =>
                     if i < s.length - 1 then
                         val curPair: String = s(i).toString + s(i + 1);
@@ -34,7 +33,7 @@ object Day14 extends AocDay[(Array[Char], Map[String, Char]), Long]:
             val newLength = s.length + insertions.count(_.isDefined)
             val newS = Array.ofDim[Char](newLength)
             var k = 0;
-            for i <- 0 until s.length do
+            for i <- s.indices do
                 newS(k) = s(i)
                 k += 1
                 insertions(i) match
@@ -46,7 +45,7 @@ object Day14 extends AocDay[(Array[Char], Map[String, Char]), Long]:
         val countMap = s.groupBy(identity).view.mapValues(_.length)
         countMap.maxBy(_._2)._2 - countMap.minBy(_._2)._2
 
-    def solveFast(steps: Int)(input: (Array[Char], Map[String, Char])): Long =
+    private def solveFast(steps: Int)(input: (Array[Char], Map[String, Char])): Long =
         val (s, rules) = input
         val pairs: Seq[String] =
             for i <- 0 to s.length - 2
