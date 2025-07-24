@@ -3,8 +3,8 @@
 | 2021                                             |
 |--------------------------------------------------|
 | [Day 01](src/main/scala/years/y2021/Day01.scala) |
-| Day 02                                           |
-| Day 03                                           |
+| [Day 02](src/main/scala/years/y2021/Day02.scala) |
+| [Day 03](src/main/scala/years/y2021/Day03.scala) |
 | Day 04                                           |
 | [Day 05](src/main/scala/years/y2021/Day05.scala) |
 | [Day 06](src/main/scala/years/y2021/Day06.scala) |

@@ -14,8 +14,8 @@ import years.y2021
         case 2021 =>
             day match
                 case 1  => y2021.Day01.run(task)
-                case 2  => throw NotImplementedError()
-                case 3  => throw NotImplementedError()
+                case 2  => y2021.Day02.run(task)
+                case 3  => y2021.Day03.run(task)
                 case 4  => throw NotImplementedError()
                 case 5  => y2021.Day05.run(task)
                 case 6  => y2021.Day06.run(task)
