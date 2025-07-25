@@ -54,7 +54,7 @@ object Day04 extends AocDay[(List[Int], Array[Array[Array[Int]]]), Long]:
                         case Some(value) => {
                             res.append((i, value))
                         }
-                        case None =>
+                        case None => {}
                 )
         )
         res.toList
