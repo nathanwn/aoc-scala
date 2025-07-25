@@ -13,7 +13,7 @@ object Day18 extends AocDay[List[Node], Int]:
         var parent: Option[InnerNode],
         var left: Option[Node] = None,
         var right: Option[Node] = None
-    ) extends Node {
+    ) extends Node:
         override def toString: String =
             (left, right) match
                 case (Some(leftChild), Some(rightChild)) =>
@@ -21,12 +21,10 @@ object Day18 extends AocDay[List[Node], Int]:
                 case _ => ""
 
         override def equals(obj: Any): Boolean = super.equals(obj)
-    }
 
     private case class LeafNode(var parent: Option[InnerNode], var value: Int)
-        extends Node {
+        extends Node:
         override def toString: String = s"$value"
-    }
 
     def parse(input: String): List[Node] =
         def parseNode(parent: Option[InnerNode])(input: String): Option[Node] =

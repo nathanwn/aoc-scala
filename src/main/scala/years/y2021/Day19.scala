@@ -28,13 +28,12 @@ object Day19 extends AocDay[Array[List[Vec]], Int]:
             for (i <- 0 until this.n) res(i) = this(i) - that(i)
             res
 
-        def compare(that: Vec): Int = {
+        def compare(that: Vec): Int =
             (0 until this.n).find(i => this(i) != that(i)) match
                 case Some(i) =>
                     if this(i) < that(i) then -1
                     else 1
                 case None => 0
-        }
 
         override def equals(that: Any): Boolean =
             that match

@@ -44,20 +44,17 @@ object Day04 extends AocDay[(List[Int], Array[Array[Array[Int]]]), Long]:
                 i <- boards.indices
                 r <- boards.head.indices
                 c <- boards.head.head.indices
-            do
-                if boards(i)(r)(c) == num then
-                    mark(i)(r)(c) = true
+            do if boards(i)(r)(c) == num then mark(i)(r)(c) = true
             boards.indices
                 .filter(i => res.forall((id, _) => id != i))
                 .foreach(i =>
                     val winningScore: Option[Long] =
                         checkWinningScore(boards(i), mark(i), num)
-                    winningScore match {
+                    winningScore match
                         case Some(value) => {
                             res.append((i, value))
                         }
                         case None =>
-                    }
                 )
         )
         res.toList
@@ -66,7 +63,7 @@ object Day04 extends AocDay[(List[Int], Array[Array[Array[Int]]]), Long]:
         board: Array[Array[Int]],
         mark: Array[Array[Boolean]],
         lastNum: Int
-    ): Option[Long] = {
+    ): Option[Long] =
         val candidates: List[Option[Long]] = (board.indices
             .map(r => getWinningScoreFromRow(board, mark, r, lastNum))
             ++ board.head.indices
@@ -79,20 +76,18 @@ object Day04 extends AocDay[(List[Int], Array[Array[Array[Int]]]), Long]:
                     case Some(value) => true
                     case None        => false
             ) match
-                case Some(value) => value
-                case None        => None
+            case Some(value) => value
+            case None        => None
         res
-    }
 
     private def getWinningScoreFromRow(
         board: Array[Array[Int]],
         mark: Array[Array[Boolean]],
         r: Int,
         lastNum: Int
-    ): Option[Long] = {
+    ): Option[Long] =
         val row = board(r).indices.map(c => (r, c)).toList
         getWinningScore(board, mark, row, lastNum)
-    }
 
     private def getWinningScoreFromColumn(
         board: Array[Array[Int]],

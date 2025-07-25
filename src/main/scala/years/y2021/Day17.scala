@@ -41,7 +41,7 @@ object Day17 extends AocDay[((Int, Int), (Int, Int)), Int]:
             vy <- -200 to 200
         yield (vx, vy))
             .map((vx, vy) =>
-                travel((xMin, xMax), (yMin, yMax))(vx, vy) match {
+                travel((xMin, xMax), (yMin, yMax))(vx, vy) match
                     case None => Integer.MIN_VALUE
                     case Some(coors) =>
                         val within = coors
@@ -50,7 +50,6 @@ object Day17 extends AocDay[((Int, Int), (Int, Int)), Int]:
                             )
                         if within.isEmpty then Integer.MIN_VALUE
                         else coors.maxBy((x, y) => y)._2
-                }
             )
             .max
 
@@ -63,7 +62,7 @@ object Day17 extends AocDay[((Int, Int), (Int, Int)), Int]:
             vy <- -200 to 200
         yield (vx, vy))
             .map((vx, vy) =>
-                travel((xMin, xMax), (yMin, yMax))(vx, vy) match {
+                travel((xMin, xMax), (yMin, yMax))(vx, vy) match
                     case None => 0
                     case Some(coors) =>
                         val within = coors
@@ -72,6 +71,5 @@ object Day17 extends AocDay[((Int, Int), (Int, Int)), Int]:
                             )
                         if within.isEmpty then 0
                         else 1
-                }
             )
             .sum

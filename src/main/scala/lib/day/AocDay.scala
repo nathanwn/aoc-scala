@@ -3,7 +3,7 @@ package lib.day
 import java.io.BufferedReader
 import scala.io.Source
 
-abstract class AocDay[InputType, OutputType <: AnyVal] {
+abstract class AocDay[InputType, OutputType <: AnyVal]:
     def parse(text: String): InputType
 
     def solve1(data: InputType): OutputType
@@ -31,18 +31,17 @@ abstract class AocDay[InputType, OutputType <: AnyVal] {
 
     private def readFileToString(reader: BufferedReader): String =
         val sb = new StringBuilder
-        try {
+        try
             var line = reader.readLine()
             while (line != null) {
                 sb.append(line)
                 sb.append(System.lineSeparator())
                 line = reader.readLine()
             }
-        } finally reader.close()
+        finally reader.close()
         sb.toString().strip()
 
     private def getSolver(taskId: Int): InputType => OutputType =
         taskId match
             case 1 => solve1
             case 2 => solve2
-}
