@@ -26,7 +26,7 @@
 | [Day 22](src/main/scala/years/y2021/Day22.scala) |
 | [Day 23](src/main/scala/years/y2021/Day23.scala) |
 | Day 24                                           |
-| Day 25                                           |
+| [Day 25](src/main/scala/years/y2021/Day25.scala) |
 
 ## Usage
 

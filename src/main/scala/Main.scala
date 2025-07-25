@@ -37,6 +37,6 @@ import years.y2021
                 case 22 => y2021.Day22.run(task)
                 case 23 => y2021.Day23.run(task)
                 case 24 => throw NotImplementedError()
-                case 25 => throw NotImplementedError()
+                case 25 => y2021.Day25.run(task)
                 case _  => throw RuntimeException(s"Invalid day $day")
         case _ => throw NotImplementedError()
