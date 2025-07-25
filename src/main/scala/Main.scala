@@ -16,7 +16,7 @@ import years.y2021
                 case 1  => y2021.Day01.run(task)
                 case 2  => y2021.Day02.run(task)
                 case 3  => y2021.Day03.run(task)
-                case 4  => throw NotImplementedError()
+                case 4  => y2021.Day04.run(task)
                 case 5  => y2021.Day05.run(task)
                 case 6  => y2021.Day06.run(task)
                 case 7  => y2021.Day07.run(task)
