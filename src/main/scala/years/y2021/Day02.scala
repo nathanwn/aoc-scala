@@ -2,8 +2,6 @@ package years.y2021
 
 import lib.day.AocDay
 
-import scala.collection.mutable
-
 object Day02 extends AocDay[Seq[(String, Int)], Int]:
     def parse(input: String): Seq[(String, Int)] =
         input

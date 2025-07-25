@@ -1,7 +1,7 @@
 package years.y2021
 
-import Day08.{Entry, parseMask}
 import lib.day.AocDay
+import years.y2021.Day08.Entry
 
 object Day08 extends AocDay[List[Entry], Int]:
     private val digitMasks: Array[Int] = Array.ofDim[Int](10)
@@ -18,7 +18,7 @@ object Day08 extends AocDay[List[Entry], Int]:
 
     class Entry(val signals: List[Int], val display: List[Int])
 
-    def parseMask(s: String): Int =
+    private def parseMask(s: String): Int =
         s.map(c => 1 << (c - 'a')).sum
 
     private def parseEntry(line: String): Entry =
@@ -49,7 +49,7 @@ object Day08 extends AocDay[List[Entry], Int]:
         val f = solveMapping(entry)
         entry.display
             .map(encodedMask =>
-                val digit = digitMasks.indexOf(decode(f)(encodedMask));
+                val digit = digitMasks.indexOf(decode(f)(encodedMask))
                 digit
             )
             .reduce((lhs, rhs) => lhs * 10 + rhs)

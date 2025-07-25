@@ -5,7 +5,7 @@ import lib.day.AocDay
 object Day20 extends AocDay[(Array[Int], Array[Array[Int]]), Int]:
     val adj: Seq[(Int, Int)] =
         for
-            i <- -1 to 1;
+            i <- -1 to 1
             j <- -1 to 1
         yield (i, j)
 

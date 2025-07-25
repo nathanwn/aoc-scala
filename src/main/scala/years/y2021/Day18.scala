@@ -23,7 +23,7 @@ object Day18 extends AocDay[List[Node], Int]:
         override def equals(obj: Any): Boolean = super.equals(obj)
     }
 
-    case class LeafNode(var parent: Option[InnerNode], var value: Int)
+    private case class LeafNode(var parent: Option[InnerNode], var value: Int)
         extends Node {
         override def toString: String = s"$value"
     }
@@ -191,7 +191,10 @@ object Day18 extends AocDay[List[Node], Int]:
         right.parent = Some(tree)
         tree
 
-    private def copy(node: Option[Node], parent: Option[InnerNode] = None): Node =
+    private def copy(
+        node: Option[Node],
+        parent: Option[InnerNode] = None
+    ): Node =
         node match
             case Some(innerNode: InnerNode) =>
                 val clonedNode = InnerNode(parent)
@@ -205,7 +208,7 @@ object Day18 extends AocDay[List[Node], Int]:
     def solve1(trees: List[Node]): Int =
         val finalTree = trees.tail.foldLeft(trees.head)((left, right) =>
             val tree = combine(left, right)
-            reduce(tree);
+            reduce(tree)
             tree
         )
         magnitude(Some(finalTree))

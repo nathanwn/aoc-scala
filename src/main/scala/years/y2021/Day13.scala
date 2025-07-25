@@ -56,11 +56,13 @@ object Day13 extends AocDay[(List[(Int, Int)], List[(Int, Int)]), Int]:
         then foldHor(cmd(1))(grid)
         else foldVer(cmd(1))(grid)
 
-    private def foldVer(X: Int)(grid: Array[Array[Boolean]]): Array[Array[Boolean]] =
+    private def foldVer(X: Int)(
+        grid: Array[Array[Boolean]]
+    ): Array[Array[Boolean]] =
         val Y = grid(0).length
         val newGrid = Array.ofDim[Boolean](X, Y)
         (for
-            x <- 0 until X;
+            x <- 0 until X
             y <- 0 until Y
         yield (x, y)).foreach((x, y) =>
             newGrid(x)(y) =
@@ -70,11 +72,13 @@ object Day13 extends AocDay[(List[(Int, Int)], List[(Int, Int)]), Int]:
         )
         newGrid
 
-    private def foldHor(Y: Int)(grid: Array[Array[Boolean]]): Array[Array[Boolean]] =
+    private def foldHor(Y: Int)(
+        grid: Array[Array[Boolean]]
+    ): Array[Array[Boolean]] =
         val X = grid.length
         val newGrid = Array.ofDim[Boolean](X, Y)
         (for
-            x <- 0 until X;
+            x <- 0 until X
             y <- 0 until Y
         yield (x, y)).foreach((x, y) =>
             newGrid(x)(y) =

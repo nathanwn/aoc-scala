@@ -20,7 +20,7 @@ object Day15 extends AocDay[Array[Array[Int]], Int]:
         val distance = mutable.Map[(Int, Int), Int]()
 
         for
-            r <- 0 until R;
+            r <- 0 until R
             c <- 0 until C
         do distance((r, c)) = Integer.MAX_VALUE
 
@@ -43,7 +43,7 @@ object Day15 extends AocDay[Array[Array[Int]], Int]:
                         ).length
                         && distance(u) + grid(vr)(vc) < distance(v)
                     then
-                        distance(v) = distance(u) + grid(vr)(vc);
+                        distance(v) = distance(u) + grid(vr)(vc)
                         pq.addOne(v, distance(v))
                 )
         0
@@ -56,9 +56,9 @@ object Day15 extends AocDay[Array[Array[Int]], Int]:
         val C = input(0).length
         val grid = Array.ofDim[Int](R * 5, C * 5)
         for
-            kr <- 0 to 4;
-            kc <- 0 to 4;
-            r <- 0 until R;
+            kr <- 0 to 4
+            kc <- 0 to 4
+            r <- 0 until R
             c <- 0 until C
         do grid(kr * R + r)(kc * C + c) = (input(r)(c) - 1 + kr + kc) % 9 + 1
         solve(grid)

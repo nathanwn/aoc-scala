@@ -11,8 +11,8 @@ object Day06 extends AocDay[List[Long], Long]:
             .map(t => initTimers.count(_ == t))
             .toArray
 
-        val D = finalDay;
-        val T = 8;
+        val D = finalDay
+        val T = 8
         val f = Array.ofDim[Long](D + 1, T + 1)
 
         (0 to D).map(d =>

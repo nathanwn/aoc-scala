@@ -18,21 +18,23 @@ object Day14 extends AocDay[(Array[Char], Map[String, Char]), Long]:
             .toMap
         (s, rules)
 
-    private def solveSlow(steps: Int)(input: (Array[Char], Map[String, Char])): Int =
+    private def solveSlow(steps: Int)(
+        input: (Array[Char], Map[String, Char])
+    ): Int =
         var s = input._1
         val rules = input._2
         for _ <- 0 until steps do
             val insertions = s.indices
                 .map(i =>
                     if i < s.length - 1 then
-                        val curPair: String = s(i).toString + s(i + 1);
+                        val curPair: String = s(i).toString + s(i + 1)
                         rules.get(curPair)
                     else None
                 )
                 .toArray
             val newLength = s.length + insertions.count(_.isDefined)
             val newS = Array.ofDim[Char](newLength)
-            var k = 0;
+            var k = 0
             for i <- s.indices do
                 newS(k) = s(i)
                 k += 1
@@ -45,7 +47,9 @@ object Day14 extends AocDay[(Array[Char], Map[String, Char]), Long]:
         val countMap = s.groupBy(identity).view.mapValues(_.length)
         countMap.maxBy(_._2)._2 - countMap.minBy(_._2)._2
 
-    private def solveFast(steps: Int)(input: (Array[Char], Map[String, Char])): Long =
+    private def solveFast(steps: Int)(
+        input: (Array[Char], Map[String, Char])
+    ): Long =
         val (s, rules) = input
         val pairs: Seq[String] =
             for i <- 0 to s.length - 2

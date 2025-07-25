@@ -37,7 +37,7 @@ object Day17 extends AocDay[((Int, Int), (Int, Int)), Int]:
         val (yMin, yMax) = input._2
 
         (for
-            vx <- -200 to 200;
+            vx <- -200 to 200
             vy <- -200 to 200
         yield (vx, vy))
             .map((vx, vy) =>
@@ -59,7 +59,7 @@ object Day17 extends AocDay[((Int, Int), (Int, Int)), Int]:
         val (yMin, yMax) = input._2
 
         (for
-            vx <- -200 to 200;
+            vx <- -200 to 200
             vy <- -200 to 200
         yield (vx, vy))
             .map((vx, vy) =>

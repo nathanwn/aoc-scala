@@ -141,7 +141,7 @@ object Day23 extends AocDay[Array[Array[Char]], Long]:
                 .filter(cell => agents.contains(this(cell)))
             val roomCells: Seq[(Int, Int)] =
                 (for
-                    r <- 2 to grid.length - 2;
+                    r <- 2 to grid.length - 2
                     c <- cRoom.values
                     if agents.contains(this((r, c)))
                 yield (r, c))
@@ -205,7 +205,7 @@ object Day23 extends AocDay[Array[Array[Char]], Long]:
                           e.v
                         )
                     then
-                        distance(e.v) = distance(u) + e.w;
+                        distance(e.v) = distance(u) + e.w
                         pq.addOne(e.v, distance(e.v), Some(u))
                 )
         0L

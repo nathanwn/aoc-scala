@@ -21,7 +21,7 @@ object Day12 extends AocDay[Map[String, List[String]], Int]:
                 g(u) += v
                 g(v) += u
             )
-        g.map((u, vs) => u -> vs.toList).toMap
+        g.map((u, vs) => u -> vs.toList)
 
     def solve1(g: Map[String, List[String]]): Int =
         val visits = mutable.Map[String, Int]()

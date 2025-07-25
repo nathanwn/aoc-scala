@@ -40,8 +40,8 @@ object Day16 extends AocDay[Node, Long]:
                 val numSubNodes = Integer.parseInt(bits.substring(1, 12), 2)
                 var remain = bits.substring(12)
                 val children = (1 to numSubNodes).map(_ =>
-                    val res: (Node, String) = parseNode(remain);
-                    remain = res._2;
+                    val res: (Node, String) = parseNode(remain)
+                    remain = res._2
                     res._1
                 )
                 (children, remain)

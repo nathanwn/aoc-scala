@@ -108,9 +108,9 @@ object Day19 extends AocDay[Array[List[Vec]], Int]:
             val builder: StringBuilder = StringBuilder()
             builder.append("SqMat[\n")
             keys.foreach(row =>
-                builder.append("  [");
-                builder.append(row.head);
-                row.tail.foreach(value => builder.append(s",$value"));
+                builder.append("  [")
+                builder.append(row.head)
+                row.tail.foreach(value => builder.append(s",$value"))
                 builder.append("]\n")
             )
             builder.append("]")
@@ -138,7 +138,7 @@ object Day19 extends AocDay[Array[List[Vec]], Int]:
     private def connect(us: List[Vec], vs0: List[Vec], B: SqMat): Option[Vec] =
         val vs = vs0.map(v => B * v)
         (for
-            u0 <- us;
+            u0 <- us
             v0 <- vs
         yield (u0, v0))
             .find((u0: Vec, v0: Vec) =>
@@ -212,6 +212,6 @@ object Day19 extends AocDay[Array[List[Vec]], Int]:
         val ps = solve(scanners)
         val coors = ps.toList.map(_.o)
         (for
-            u <- coors;
+            u <- coors
             v <- coors
         yield u.distManhattan(v)).max
